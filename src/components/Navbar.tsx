@@ -52,7 +52,7 @@ function Navbar() {
               unoptimized
               width={18}
               alt="logo"
-              src="/logo.png"
+              src="logo.png"
             />
             <span className="hidden lg:block">Proxmox VE Helper-Scripts</span>
           </Link>

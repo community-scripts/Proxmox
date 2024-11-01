@@ -9,8 +9,6 @@ import { useTheme } from "next-themes";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import logo from "../../public/logo.png"
-import Image from "next/image";
 import { CardFooter } from "@/components/ui/card";
 import { FaGithub } from "react-icons/fa";
 

@@ -2,9 +2,9 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <div className="supports-backdrop-blur:bg-background/90 justify-betw mt-auto flex border-t border-border bg-background/40 py-6 backdrop-blur-lg">
+    <div className="supports-backdrop-blur:bg-background/90 mt-auto flex border-t border-border bg-background/40 py-6 backdrop-blur-lg">
       <div className="flex w-full justify-between">
-        <div className="mx-6 w-full max-w-7xl text-sm">
+        <div className="mx-6 w-full max-w-7xl text-sm text-muted-foreground">
           Website build by{" "}
           <Link
             href="https://github.com/BramSuurdje"

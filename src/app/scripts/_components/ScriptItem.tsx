@@ -66,6 +66,10 @@ function ScriptItem({
                       className="h-32 w-32 rounded-lg bg-accent/60 object-contain p-3 shadow-md"
                       src={item.logo}
                       width={400}
+                      onError={(e) =>
+                        ((e.currentTarget as HTMLImageElement).src =
+                          "/logo.png")
+                      }
                       height={400}
                       alt={item.title}
                       unoptimized

@@ -106,6 +106,10 @@ export default function CommandMenu() {
                       src={script.logo}
                       unoptimized
                       height={16}
+                      onError={(e) =>
+                        ((e.currentTarget as HTMLImageElement).src =
+                          "/logo.png")
+                      }
                       width={16}
                       alt=""
                       className="h-5 w-5"

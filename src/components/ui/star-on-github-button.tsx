@@ -6,12 +6,12 @@ import NumberTicker from "../magicui/number-ticker";
 import { buttonVariants } from "./button";
 
 export default function StarOnGithubButton() {
-  const [stars, setStars] = useState(13000);
+  const [stars, setStars] = useState(0);
 
   useEffect(() => {
     const fetchStars = async () => {
       try {
-        const res = await fetch("https://api.github.com/repos/tteck/Proxmox", {
+        const res = await fetch("https://api.github.com/repos/community-scripts/ProxmoxVE", {
           next: { revalidate: 60 * 60 * 24 },
         });
 
@@ -34,7 +34,7 @@ export default function StarOnGithubButton() {
         "group relative justify-center gap-2 rounded-md transition-all duration-300 ease-out hover:ring-2 hover:ring-primary hover:ring-offset-2",
       )}
       target="_blank"
-      href="https://github.com/tteck/Proxmox"
+      href="https://github.com/community-scripts/ProxmoxVE"
     >
       <span className="absolute right-0 -mt-12 h-32 translate-x-12 rotate-12 bg-white opacity-10 transition-all duration-1000 ease-out group-hover:-translate-x-40" />
       <div className="flex items-center">

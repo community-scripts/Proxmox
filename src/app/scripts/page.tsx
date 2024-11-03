@@ -10,42 +10,9 @@ import { Suspense, useEffect, useState } from "react";
 import Sidebar from "./_components/Sidebar";
 
 function ScriptContent() {
-  const [links, setLinks] = useState<Category[]>([]);
   const [selectedScript, setSelectedScript] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [links, setLinks] = useState<Category[]>([]);
   const searchParams = useSearchParams();
-
-  useEffect(() => {
-    const fetchCategories = async (): Promise<void> => {
-      try {
-        const response = await fetch("api/categories");
-        if (!response.ok) {
-          throw new Error("Failed to fetch categories");
-        }
-        const categories: Category[] = await response.json();
-        if (categories.length === 0) {
-          throw new Error("Empty response");
-        }
-        const sortedCategories = sortCategories(categories);
-        setLinks(sortedCategories);
-        setLoading(false);
-      } catch (error) {
-        console.error(error);
-        setLoading(false);
-      }
-    };
-
-    fetchCategories();
-  }, []);
-
-  useEffect(() => {
-    const id = searchParams.get("id");
-    if (id) {
-      setSelectedScript(id);
-    } else {
-      setSelectedScript(null);
-    }
-  }, [searchParams, setSelectedScript]);
 
   const sortCategories = (categories: Category[]): Category[] => {
     return categories.sort((a: Category, b: Category) => {
@@ -64,6 +31,25 @@ function ScriptContent() {
       }
     });
   };
+
+  useEffect(() => {
+    fetch('/api/categories')
+      .then(response => response.json())
+      .then(categories => {
+        const sortedCategories = sortCategories(categories);
+        setLinks(sortedCategories);
+      })
+      .catch(error => console.error(error));
+  }, []);
+
+  useEffect(() => {
+    const id = searchParams.get("id");
+    if (id) {
+      setSelectedScript(id);
+    } else {
+      setSelectedScript(null);
+    }
+  }, [searchParams, setSelectedScript]);
 
   return (
     <div className="mb-3">

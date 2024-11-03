@@ -32,7 +32,7 @@ export default function CodeCopyButton({
       localStorage.setItem("warning", "1");
       setTimeout(() => {
         toast.error(
-          "be careful when copying scripts from the internet. Always remember check the source!",
+          "Be careful when copying scripts from the internet. Always remember check the source!",
           { duration: 8000 },
         );
       }, 500);

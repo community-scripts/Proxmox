@@ -27,7 +27,7 @@ export const metadata = {
   creator: "Bram Suurd",
   publisher: "Bram Suurd",
   description:
-    "A Re-designed Front-end for the Proxmox VE Helper-Scripts Repository. Featuring all the scripts you need to streamline your homelab. With a modern and clean design.",
+    "A Front-end for the Proxmox VE Helper-Scripts (Community) Repository. Featuring over 200+ scripts to help you manage your Proxmox VE environment.",
   favicon: "/app/favicon.ico",
   formatDetection: {
     email: false,
@@ -38,7 +38,7 @@ export const metadata = {
   openGraph: {
     title: "Proxmox VE Helper-Scripts",
     description:
-      "A Re-designed Front-end for the Proxmox VE Helper-Scripts Repository. Featuring all the scripts you need to streamline your homelab. With a modern and clean design.",
+      "A Front-end for the Proxmox VE Helper-Scripts (Community) Repository. Featuring over 200+ scripts to help you manage your Proxmox VE environment.",
     url: "/defaultimg.png",
     images: [
       {

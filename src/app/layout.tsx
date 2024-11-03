@@ -63,6 +63,7 @@ export default function RootLayout({
           src={`https://${process.env.NEXT_PUBLIC_ANALYTICS_URL}/script.js`}
           data-website-id={process.env.NEXT_PUBLIC_ANALYTICS_TOKEN}
         ></script>
+        <link rel="manifest" href="manifest.webmanifest" />
         <link rel="preconnect" href={process.env.NEXT_PUBLIC_POCKETBASE_URL} />
         <link rel="preconnect" href="https://api.github.com" />
       </head>

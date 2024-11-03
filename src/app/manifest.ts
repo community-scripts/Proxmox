@@ -14,8 +14,8 @@ export default function manifest(): MetadataRoute.Manifest {
     background_color: "#030712",
     display: "standalone",
     orientation: "portrait",
-    scope: "/",
-    start_url: "/",
+    scope: "/Proxmox/",
+    start_url: "/Proxmox/",
     icons: [
       {
         src: "logo.png",

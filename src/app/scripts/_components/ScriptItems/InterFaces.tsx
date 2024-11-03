@@ -1,5 +1,7 @@
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import handleCopy from "@/lib/handleCopy";
+import { cn } from "@/lib/utils";
+import { ClipboardIcon } from "lucide-react";
 
 interface Item {
   interface?: string;
@@ -13,13 +15,13 @@ const CopyButton = ({
   label: string;
   value: string | number;
 }) => (
-  <Button
-    variant="secondary"
-    size="sm"
-    onClick={() => handleCopy(label, String(value))}
-  >
+  <span className={cn(buttonVariants({size: "sm", variant: "secondary"}), "flex items-center gap-2")}>
     {value}
-  </Button>
+    <ClipboardIcon
+      onClick={() => handleCopy(label, String(value))}
+      className="size-4 cursor-pointer"
+    />
+  </span>
 );
 
 export default function InterFaces({ item }: { item: Item }) {

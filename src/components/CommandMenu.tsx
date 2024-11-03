@@ -12,6 +12,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { Button } from "./ui/button";
+import { DialogTitle } from "./ui/dialog";
 
 const sortCategories = (categories: Category[]): Category[] => {
   return categories.sort((a: Category, b: Category) => {
@@ -84,17 +85,18 @@ export default function CommandMenu() {
         </kbd>
       </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>
+          <DialogTitle className="sr-only">Search scripts</DialogTitle>
         <CommandInput placeholder="search for a script..." />
         <CommandList>
           <CommandEmpty>No scripts found.</CommandEmpty>
           {links.map((category) => (
             <CommandGroup
-              key={"category:" + category.categoryId}
+              key={"category:" + category.catagoryName}
               heading={category.catagoryName}
             >
               {category.expand.items.map((script) => (
                 <CommandItem
-                  key={"script:"+script.id}
+                  key={"script:" + script.id}
                   value={script.title}
                   onSelect={() => {
                     setOpen(false);
@@ -106,6 +108,10 @@ export default function CommandMenu() {
                       src={script.logo}
                       unoptimized
                       height={16}
+                      onError={(e) =>
+                        ((e.currentTarget as HTMLImageElement).src =
+                          "/logo.png")
+                      }
                       width={16}
                       alt=""
                       className="h-5 w-5"

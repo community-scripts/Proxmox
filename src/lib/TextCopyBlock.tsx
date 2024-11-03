@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import handleCopy from "./handleCopy";
-import { Copy } from "lucide-react";
+import { ClipboardIcon, Copy } from "lucide-react";
 
 export default function TextCopyBlock(description: string) {
   const pattern = /`([^`]*)`/g;
@@ -14,7 +14,7 @@ export default function TextCopyBlock(description: string) {
           className="bg-secondary py-1 px-2 rounded-lg inline-flex items-center gap-2"
         >
           {part}
-          <Copy
+          <ClipboardIcon
             className="size-3 cursor-pointer"
             onClick={() => handleCopy("command", part)}
           />

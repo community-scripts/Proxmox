@@ -8,6 +8,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://proxmoxve-scripts.com/sitemap.xml",
+    sitemap: "https://community-scripts.github.io/Proxmox/sitemap.xml",
   };
 }

@@ -5,13 +5,13 @@ export const dynamic = "force-static";
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: "https://proxmoxve-scripts.com",
+      url: "https://community-scripts.github.io/Proxmox/",
       lastModified: new Date(),
       changeFrequency: "yearly",
       priority: 0.8,
     },
     {
-      url: "https://proxmoxve-scripts.com/scripts",
+      url: "https://community-scripts.github.io/Proxmox/scripts",
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 1,

@@ -1,5 +1,5 @@
 <h1 align="center">
-  <a href="https://proxmoxve-scripts.com" target="_blank"><img src="https://proxmoxve-scripts.com/defaultimg.png" alt="Proxmox Helper Scripts" width="800"></a>
+  <a href="https://community-scripts.github.io/Proxmox/" target="_blank"><img src="https://community-scripts.github.io/Proxmox/defaultimg.png" alt="Proxmox Helper Scripts" width="800"></a>
 </h1>
 
 > [!WARNING]

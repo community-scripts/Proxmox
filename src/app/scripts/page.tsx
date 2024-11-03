@@ -70,10 +70,10 @@ function ScriptContent() {
           {selectedScript && item ? (
             <ScriptItem item={item} setSelectedScript={setSelectedScript} />
           ) : (
-            <>
+            <div className="flex w-full flex-col gap-5">
               <LatestScripts items={links} />
               <MostViewedScripts items={links} />
-            </>
+            </div>
           )}
         </div>
       </div>

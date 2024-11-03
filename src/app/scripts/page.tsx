@@ -47,7 +47,7 @@ function ScriptContent() {
   };
 
   useEffect(() => {
-    fetch("/api/categories")
+    fetch("Proxmox/api/categories")
       .then((response) => response.json())
       .then((categories) => {
         const sortedCategories = sortCategories(categories);

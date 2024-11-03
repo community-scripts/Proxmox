@@ -3,15 +3,30 @@
 export const dynamic = "force-static";
 
 import ScriptItem from "@/app/scripts/_components/ScriptItem";
-import { Category } from "@/lib/types";
+import { Category, Script } from "@/lib/types";
 import { Loader2 } from "lucide-react";
 import { Suspense, useEffect, useState } from "react";
 import Sidebar from "./_components/Sidebar";
 import { useQueryState } from "nuqs";
+import {
+  LatestScripts,
+  MostViewedScripts,
+} from "./_components/ScriptInfoBlocks";
 
 function ScriptContent() {
   const [selectedScript, setSelectedScript] = useQueryState("id");
   const [links, setLinks] = useState<Category[]>([]);
+  const [item, setItem] = useState<Script>();
+
+  useEffect(() => {
+    if (selectedScript && links.length > 0) {
+      const script = links
+        .map((category) => category.expand.items)
+        .flat()
+        .find((script) => script.title === selectedScript);
+      setItem(script);
+    }
+  }, [selectedScript, links]);
 
   const sortCategories = (categories: Category[]): Category[] => {
     return categories.sort((a: Category, b: Category) => {
@@ -32,13 +47,13 @@ function ScriptContent() {
   };
 
   useEffect(() => {
-    fetch('/api/categories')
-      .then(response => response.json())
-      .then(categories => {
+    fetch("/api/categories")
+      .then((response) => response.json())
+      .then((categories) => {
         const sortedCategories = sortCategories(categories);
         setLinks(sortedCategories);
       })
-      .catch(error => console.error(error));
+      .catch((error) => console.error(error));
   }, []);
 
   return (
@@ -52,11 +67,14 @@ function ScriptContent() {
           />
         </div>
         <div className="mx-7 w-full sm:mx-0 sm:ml-7">
-          <ScriptItem
-            items={links}
-            selectedScript={selectedScript}
-            setSelectedScript={setSelectedScript}
-          />
+          {selectedScript && item ? (
+            <ScriptItem item={item} setSelectedScript={setSelectedScript} />
+          ) : (
+            <>
+              <LatestScripts items={links} />
+              <MostViewedScripts items={links} />
+            </>
+          )}
         </div>
       </div>
     </div>

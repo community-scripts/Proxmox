@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FaGithub, FaStar } from "react-icons/fa";
-import NumberTicker from "../magicui/number-ticker";
+import NumberTicker from "./number-ticker";
 import { buttonVariants } from "./button";
 
 export default function StarOnGithubButton() {

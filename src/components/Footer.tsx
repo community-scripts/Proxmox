@@ -5,19 +5,9 @@ export default function Footer() {
     <div className="supports-backdrop-blur:bg-background/90 mt-auto flex border-t border-border bg-background/40 py-6 backdrop-blur-lg">
       <div className="flex w-full justify-between">
         <div className="mx-6 w-full max-w-7xl text-sm text-muted-foreground">
-          Website build by{" "}
+          Website build by the community. The source code is avaliable on{" "}
           <Link
-            href="https://github.com/BramSuurdje"
-            className="font-semibold underline-offset-2 duration-300 hover:underline"
-            target="_blank"
-            rel="noreferrer"
-            data-umami-event="View Bram on Github"
-          >
-            Bram Suurd
-          </Link>
-          . The source code is avaliable on{" "}
-          <Link
-            href="https://github.com/BramSuurdje/proxmox-helper-scripts"
+            href="https://github.com/community-scripts/Proxmox"
             target="_blank"
             rel="noreferrer"
             className="font-semibold underline-offset-2 duration-300 hover:underline"

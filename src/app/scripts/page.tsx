@@ -5,14 +5,13 @@ export const dynamic = "force-static";
 import ScriptItem from "@/app/scripts/_components/ScriptItem";
 import { Category } from "@/lib/types";
 import { Loader2 } from "lucide-react";
-import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import Sidebar from "./_components/Sidebar";
+import { useQueryState } from "nuqs";
 
 function ScriptContent() {
-  const [selectedScript, setSelectedScript] = useState<string | null>(null);
+  const [selectedScript, setSelectedScript] = useQueryState("id");
   const [links, setLinks] = useState<Category[]>([]);
-  const searchParams = useSearchParams();
 
   const sortCategories = (categories: Category[]): Category[] => {
     return categories.sort((a: Category, b: Category) => {
@@ -41,15 +40,6 @@ function ScriptContent() {
       })
       .catch(error => console.error(error));
   }, []);
-
-  useEffect(() => {
-    const id = searchParams.get("id");
-    if (id) {
-      setSelectedScript(id);
-    } else {
-      setSelectedScript(null);
-    }
-  }, [searchParams, setSelectedScript]);
 
   return (
     <div className="mb-3">

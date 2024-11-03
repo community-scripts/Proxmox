@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/sonner";
 import "@/styles/globals.css";
 import { Inter } from "next/font/google";
 import React from "react";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -72,7 +73,7 @@ export default function RootLayout({
             <div className="flex min-h-screen flex-col justify-center">
               <div className="flex w-full justify-center">
                 <div className="w-full max-w-7xl ">
-                  {children}
+                  <NuqsAdapter>{children}</NuqsAdapter>
                   <Toaster richColors />
                 </div>
               </div>

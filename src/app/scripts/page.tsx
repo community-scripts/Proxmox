@@ -9,7 +9,7 @@ import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import Sidebar from "./_components/Sidebar";
 
-export default function Page() {
+function ScriptContent() {
   const [links, setLinks] = useState<Category[]>([]);
   const [selectedScript, setSelectedScript] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -65,32 +65,40 @@ export default function Page() {
     });
   };
 
-return (
-    <Suspense fallback={
-      <div className="flex h-screen w-full flex-col items-center justify-center gap-5 bg-background px-4 md:px-6">
-        <div className="space-y-2 text-center">
-          <Loader2 className="h-10 w-10 animate-spin" />
+  return (
+    <div className="mb-3">
+      <div className="mt-20 flex sm:px-4 xl:px-0">
+        <div className="hidden sm:flex">
+          <Sidebar
+            items={links}
+            selectedScript={selectedScript}
+            setSelectedScript={setSelectedScript}
+          />
+        </div>
+        <div className="mx-7 w-full sm:mx-0 sm:ml-7">
+          <ScriptItem
+            items={links}
+            selectedScript={selectedScript}
+            setSelectedScript={setSelectedScript}
+          />
         </div>
       </div>
-    }>
-      <div className="mb-3">
-        <div className="mt-20 flex sm:px-4 xl:px-0">
-          <div className="hidden sm:flex">
-            <Sidebar
-              items={links}
-              selectedScript={selectedScript}
-              setSelectedScript={setSelectedScript}
-            />
-          </div>
-          <div className="mx-7 w-full sm:mx-0 sm:ml-7">
-            <ScriptItem
-              items={links}
-              selectedScript={selectedScript}
-              setSelectedScript={setSelectedScript}
-            />
+    </div>
+  );
+}
+
+export default function Page() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex h-screen w-full flex-col items-center justify-center gap-5 bg-background px-4 md:px-6">
+          <div className="space-y-2 text-center">
+            <Loader2 className="h-10 w-10 animate-spin" />
           </div>
         </div>
-      </div>
+      }
+    >
+      <ScriptContent />
     </Suspense>
   );
 }

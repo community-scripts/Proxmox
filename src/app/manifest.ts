@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 
-export const dynamic = "force-static";
+export const generateStaticParams = () => {
+  return [];
+};
 
 export default function manifest(): MetadataRoute.Manifest {
   return {

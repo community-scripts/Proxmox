@@ -50,24 +50,13 @@ export default function CommandMenu() {
   }, []);
 
   React.useEffect(() => {
-    const fetchCategories = async (): Promise<void> => {
-      try {
-        const response = await fetch("api/categories");
-        if (!response.ok) {
-          throw new Error("Failed to fetch categories");
-        }
-        const categories: Category[] = await response.json();
-        if (categories.length === 0) {
-          throw new Error("Empty response");
-        }
+    fetch(`api/categories?_=${process.env.NEXT_PUBLIC_BUILD_TIME || Date.now()}`)
+      .then((response) => response.json())
+      .then((categories) => {
         const sortedCategories = sortCategories(categories);
         setLinks(sortedCategories);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchCategories();
+      })
+      .catch((error) => console.error(error));
   }, []);
 
   return (

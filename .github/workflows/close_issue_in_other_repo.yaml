@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+        
       - name: Extract and Process PR Title
         id: extract_title
         run: |
@@ -58,7 +59,7 @@ jobs:
       - name: Comment on the Best-Matching Issue and Close It
         if: env.issue_number != ''
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.PAT_MICHEL }}
         run: |
           gh issue comment $issue_number --repo community-scripts/ProxmoxVED --body "Merged with #${{ github.event.pull_request.number }} in ProxmoxVE"
           gh issue close $issue_number --repo community-scripts/ProxmoxVED

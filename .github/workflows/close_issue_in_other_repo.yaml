@@ -11,24 +11,51 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Extract PR Title in Lowercase
+      - name: Extract and Process PR Title
         id: extract_title
-        run: echo "title=$(echo '${{ github.event.pull_request.title }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+        run: |
+          # Strip "New Script:" from the title and convert it to lowercase
+          title=$(echo "${{ github.event.pull_request.title }}" | sed 's/^New Script://g' | tr '[:upper:]' '[:lower:]' | sed 's/ //g' | sed 's/-//g')
+          echo "Processed Title: $title"
+          echo "title=$title" >> $GITHUB_ENV
 
-      - name: Search for Issue with Matching Title
+      - name: Search for Issues with Similar Titles
         id: find_issue
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          ISSUE=$(gh issue list --repo community-scripts/ProxmoxVED --search "$title" --json number --jq '.[0].number')
-          if [ -n "$ISSUE" ]; then
-            echo "issue_number=$ISSUE" >> $GITHUB_ENV
+          # Get all issues in the target repository
+          issues=$(gh issue list --repo community-scripts/ProxmoxVED --json number,title --jq '.[] | {number, title}')
+          
+          # Find the issue with the closest match by calculating similarity
+          best_match_score=0
+          best_match_number=0
+          
+          for issue in $(echo "$issues" | jq -r '. | @base64'); do
+            _jq() {
+              echo ${issue} | base64 --decode | jq -r ${1}
+            }
+
+            issue_title=$(_jq '.title' | tr '[:upper:]' '[:lower:]' | sed 's/ //g' | sed 's/-//g')
+            issue_number=$(_jq '.number')
+            
+            # Simple scoring: count matching characters (you can extend this logic)
+            match_score=$(echo "$title" | grep -o "$issue_title" | wc -l)
+            
+            if [ "$match_score" -gt "$best_match_score" ]; then
+              best_match_score=$match_score
+              best_match_number=$issue_number
+            fi
+          done
+
+          if [ "$best_match_number" != "0" ]; then
+            echo "issue_number=$best_match_number" >> $GITHUB_ENV
           else
             echo "No matching issue found."
             exit 0
           fi
 
-      - name: Comment on Issue and Close It
+      - name: Comment on the Best-Matching Issue and Close It
         if: env.issue_number != ''
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

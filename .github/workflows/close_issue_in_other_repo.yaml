@@ -1,0 +1,37 @@
+name: Close Matching Issue on PR Merge
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  close_issue:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Extract PR Title in Lowercase
+        id: extract_title
+        run: echo "title=$(echo '${{ github.event.pull_request.title }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+
+      - name: Search for Issue with Matching Title
+        id: find_issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ISSUE=$(gh issue list --repo community-scripts/ProxmoxVED --search "$title" --json number --jq '.[0].number')
+          if [ -n "$ISSUE" ]; then
+            echo "issue_number=$ISSUE" >> $GITHUB_ENV
+          else
+            echo "No matching issue found."
+            exit 0
+          fi
+
+      - name: Comment on Issue and Close It
+        if: env.issue_number != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue comment $issue_number --repo community-scripts/ProxmoxVED --body "Merged with #${{ github.event.pull_request.number }} in ProxmoxVE"
+          gh issue close $issue_number --repo community-scripts/ProxmoxVED
